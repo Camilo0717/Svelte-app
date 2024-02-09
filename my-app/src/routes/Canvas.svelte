@@ -1,5 +1,5 @@
 <script>
-    import {afterUpdate, onMount, tick } from 'svelte'; //add setContext
+    import {setContext,afterUpdate, onMount, tick } from 'svelte'; //add setContext
 
 	export let width = 100;
 	export let height = 100;
@@ -12,9 +12,9 @@
 		ctx = canvas.getContext('2d');
 	});
 
-    // setContext('canvas', {
-	// 	addItem
-	// });
+    setContext('canvas', {
+		addItem
+	});
 
 	function addItem(fn) {
 		onMount(() => {

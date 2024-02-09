@@ -15,7 +15,7 @@
 		count += 1;
 	}
 
-     // Reactivity - arrays
+    // Reactivity - arrays
     let numbers = [1, 2];
 
     function addNumber() {
@@ -36,22 +36,22 @@
 	const context = canvas.getContext('2d');
     
     // Without cleaning
-    requestAnimationFrame(function loop(t) {
-			requestAnimationFrame(loop);
-			paint(context, t);
-		});
-	});
-
-    // After cleaning
-	// let frame = requestAnimationFrame(function loop(t) {
-	// 	frame = requestAnimationFrame(loop);
-	// 	paint(context, t);
+    // requestAnimationFrame(function loop(t) {
+	// 		requestAnimationFrame(loop);
+	// 		paint(context, t);
+	// 	});
 	// });
 
-	// return () => {
-	// 	cancelAnimationFrame(frame);
-	// };
-    // });
+    // After cleaning
+	let frame = requestAnimationFrame(function loop(t) {
+		frame = requestAnimationFrame(loop);
+		paint(context, t);
+	});
+
+	return () => {
+		cancelAnimationFrame(frame);
+	};
+    });
 
     // Lifecycle - beforeUpdate and afterUpdate
 
@@ -62,22 +62,22 @@
 	} from 'svelte';
 
 	let div;
-    // let autoscroll = false;
+    let autoscroll = false;
     
 	beforeUpdate(() => {
 		// determine whether we should auto-scroll
 		// once the DOM is updated...
-    //     if (div) {
-	// 	const scrollableDistance = div.scrollHeight - div.offsetHeight;
-	// 	autoscroll = div.scrollTop > scrollableDistance - 20;
-	// }
+        if (div) {
+		const scrollableDistance = div.scrollHeight - div.offsetHeight;
+		autoscroll = div.scrollTop > scrollableDistance - 20;
+	}
 	});
 
 	afterUpdate(() => {
 		// ...the DOM is now in sync with the data
-    //     if (autoscroll) {
-	// 	div.scrollTo(0, div.scrollHeight);
-	// }
+        if (autoscroll) {
+		div.scrollTo(0, div.scrollHeight);
+	}
 	});
 
 	const eliza = new Eliza();
@@ -131,13 +131,12 @@
 			replacement +
 			value.slice(selectionEnd);
 
-        // await tick();
-		// this.selectionStart = selectionStart;
-		// this.selectionEnd = selectionEnd;
+        await tick();
+		this.selectionStart = selectionStart;
+		this.selectionEnd = selectionEnd;
 	}
-    // ContextAPI
 
-    
+    // ContextAPI
 
     import Canvas from './Canvas.svelte';
 	import Square from './Square.svelte';
@@ -188,8 +187,8 @@
         <h1 class="display-6">Lifecycle - onMount</h1>
 
         <canvas
-            width={16}
-            height={8}
+            width={8}
+            height={10}
         />
         
     </div>

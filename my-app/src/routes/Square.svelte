@@ -6,7 +6,7 @@
 	export let size;
 	export let rotate;
 
-    // getContext('canvas').addItem(draw);
+    getContext('canvas').addItem(draw);
 
 	function draw(ctx) {
 		ctx.save();
